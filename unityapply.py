@@ -28,7 +28,6 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
     
     def execute(self, context):        # execute() is called by blender when running the operator.
 
-        # original_active_object = bpy.context.scene.objects.active
         original_active_object = context.view_layer.objects.active
 
         for obj in bpy.context.selected_objects:
@@ -56,17 +55,16 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
             rot[0] = pi * -90 / 180
             rot[1] = pi * -180 / 180
             
-            bpy.context.view_layer.update()
-            
+            # Apply original rotation
             rot[0] -= original_rotation[0]
             rot[1] += original_rotation[1]
             rot[2] += original_rotation[2]
             
+            # Update model matrix
             bpy.context.view_layer.update()
             
         # You should see no changes in viewport, but blue and green axes have switched and rotations set
 
-        # bpy.context.scene.objects.active = original_active_object
         context.view_layer.objects.active = original_active_object
 
         return {'FINISHED'}            # this lets blender know the operator finished successfully.
