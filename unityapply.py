@@ -16,17 +16,6 @@ from math import pi
 from mathutils import Vector
 from mathutils import Matrix
 
-def test_test():
-    print("WTF")
-    
-def look_at(obj, direction):
-    rot_quat = direction.to_track_quat('Z', 'Y')
-
-    # assume we're using euler rotation
-    obj.rotation_euler = rot_quat.to_euler()
-    
-    print("Look!")
-
 class ApplyForUnity(bpy.types.Operator):
     """My Object Moving Script"""      # blender will use this as a tooltip for menu items and buttons.
     bl_idname = "object.apply_unity"        # unique identifier for buttons and menu items to reference.
