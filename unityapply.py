@@ -8,6 +8,8 @@
 
 bl_info = {
     "name": "Unity Rotation Fix",
+    "description": "Swaps Y and Z axes to fix rotations for Blender hiararchies and Unity export",
+    "author": "Nothke",
     "category": "Object",
     "blender": (2, 80, 0)
 }
@@ -17,8 +19,8 @@ from math import pi
 from mathutils import Vector
 from mathutils import Matrix
 
-class ApplyForUnity(bpy.types.Operator):
-    """My Object Moving Script"""      # blender will use this as a tooltip for menu items and buttons.
+class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
+    """Fixes rotation (swaps Y and Z axes) for exporting to Unity"""      # blender will use this as a tooltip for menu items and buttons.
     bl_idname = "object.apply_unity"        # unique identifier for buttons and menu items to reference.
     bl_label = "Apply for Unity"         # display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}  # enable undo for the operator.
@@ -69,11 +71,10 @@ class ApplyForUnity(bpy.types.Operator):
         return {'FINISHED'}            # this lets blender know the operator finished successfully.
 
 def register():
-    bpy.utils.register_class(ApplyForUnity)
-
+    bpy.utils.register_class(NOTHKE_OT_unity_rotation_fix)
 
 def unregister():
-    bpy.utils.unregister_class(ApplyForUnity)
+    bpy.utils.unregister_class(NOTHKE_OT_unity_rotation_fix)
 
 
 # This allows you to run the script directly from blenders text editor
