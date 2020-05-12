@@ -28,11 +28,7 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
         original_active_object = context.view_layer.objects.active
 
         layer = context.view_layer
-        
-        print(" - ")
-        
-        #selected_objects = [ o for o in bpy.context.scene.objects if o.select ]
-        
+                        
         selected_objects = []
         for obj in context.selected_objects:
             selected_objects.append(obj)
@@ -40,30 +36,22 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
         bpy.ops.object.select_all(action='DESELECT')
         
         # debug
-        for obj in selected_objects:
-            print(obj.name)
-            print(obj.rotation_euler)
-            
-        print(" - - ")
-        
-        #selected_objects[0].select_set(True)
+        #print(" - - ")
+        #for obj in selected_objects:
+        #    print(obj.name)
+        #    print(obj.rotation_euler)
 
         for obj in selected_objects:
             # Select object and make active
             obj.select_set(True)
             layer.objects.active = obj
             
-            print(context.view_layer.objects.active.name)
-            
             # Remember original rotation
             original_rotation = [obj.rotation_euler[0], obj.rotation_euler[1], obj.rotation_euler[2]]
                   
             # Unrotate
             obj.rotation_euler = [0, 0, 0]
-            
-            print("rot ", layer.objects.active.rotation_euler)
-            print("rot ", obj.rotation_euler)
-            
+                        
             # First, apply rotation so it's 0,0,0
             bpy.ops.object.transform_apply(location=False, rotation=True, scale=False, properties=False)
 
@@ -84,8 +72,6 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
             obj.rotation_euler[1] += original_rotation[1]
             obj.rotation_euler[2] += original_rotation[2]
             
-            #rot = None
-            
             # Update model matrix
             bpy.context.view_layer.update()
 
@@ -93,7 +79,7 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
             layer.objects.active = None
             bpy.ops.object.select_all(action='DESELECT')
              
-        # Reselect previously selected objects
+        # Reselect and reactivate previously selected objects
         for obj in selected_objects:
             obj.select_set(True)
 
