@@ -45,18 +45,6 @@ class ApplyForUnity(bpy.types.Operator):
             rot = bpy.context.object.rotation_euler
             original_rotation = [rot[0], rot[1], rot[2]]
             
-            # Remember axes for later
-            forward_dir = (obj.matrix_world @ Vector((0,1,0)))
-            forward_dir.normalize()
-            up_dir = (obj.matrix_world @ Vector((0,0,1)))
-            up_dir.normalize()
-            right_dir = (obj.matrix_world @ Vector((1,0,0)))
-            up_dir.normalize()
-            
-            print("forward ",forward_dir)
-            
-            print(obj.rotation_euler)
-            
             # Unrotate
             bpy.context.object.rotation_euler = [0, 0, 0]
             
@@ -75,50 +63,13 @@ class ApplyForUnity(bpy.types.Operator):
             rot[0] = pi * -90 / 180
             rot[1] = pi * -180 / 180
             
-            rot_mat = Matrix.Rotation(-original_rotation[0], 4, 'X') \
-                    @ Matrix.Rotation(original_rotation[1], 4, 'Z') \
-                    @ Matrix.Rotation(original_rotation[2], 4, 'Y')
-                    
-            
-                
-            #rot_mat = Matrix.
-                
-                
-            #obj.matrix_world = obj.matrix_world @ rot_mat
-            #obj.rotation_euler = rot_mat.to_euler()
-            
-            #forward_dir[1], forward_dir[2] = forward_dir[2], forward_dir[1]
-            
-            print("forward: ", forward_dir)
-            #look_at(obj, forward_dir)
-            
-            #bpy.ops.transform.rotate(value=0.2, orient_axis='X')
-            #bpy.ops.transform.rotate(value=0.2, orient_axis='Y', orient_type='GLOBAL')
-
             bpy.context.view_layer.update()
-            
-            #newrot = Matrix.Rotation(-original_rotation[0], 4, (1,0,0))
-            #obj.matrix_world @= newrot
-            #bpy.context.view_layer.update()
-            #obj.matrix_world @= Matrix.Rotation(-original_rotation[1], 4, (0,0,1))
             
             rot[0] -= original_rotation[0]
             rot[1] += original_rotation[1]
             rot[2] += original_rotation[2]
             
-            #newrot @= Matrix.Rotation(-original_rotation[1], 4, (0,0,1))
-            
             bpy.context.view_layer.update()
-            #obj.matrix_world @= Matrix.Rotation(-0.5, 4, 'X')
-            #obj.matrix_world @= Matrix.Rotation(-0.5, 4, 'Z')
-            #obj.matrix_world @= rot_mat
-            
-            #rot[0] = pi * original_rotation[0]
-            #rot[1] = pi * original_rotation[1]
-            #rot[2] = pi * original_rotation[2]
-                    
-            #bpy.context.object.rotation_euler[0] = 1
-            #bpy.context.object.rotation_euler[2] = pi * original_rotation[2]
             
         # You should see no changes in viewport, but blue and green axes have switched and rotations set
 
