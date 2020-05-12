@@ -1,5 +1,7 @@
 # blender_unity_rotation_fix
 
+![image](docs/rotfix.gif)
+
 This plugin basically swaps Y and Z axes to be compatible with Unity's Y-up Z-forward orientation, while taking hierarchies and already present rotations into account.
 
 This plugin has been created out of need for reliable deeply nested hierarchy fbx exporting, which with standard "Apply Transform" option gets broken at 2nd child, while without "Apply Transform" it doesn't swap Y and Z axes.
