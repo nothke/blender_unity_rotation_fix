@@ -7,8 +7,9 @@
 # By Nothke
 
 bl_info = {
-    "name": "Apply for Unity",
+    "name": "Unity Rotation Fix",
     "category": "Object",
+    "blender": (2, 80, 0)
 }
 
 import bpy
