@@ -11,7 +11,8 @@ bl_info = {
     "description": "Swaps Y and Z axes to fix rotations for Blender hiararchies and Unity export",
     "author": "Nothke",
     "category": "Object",
-    "blender": (2, 80, 0)
+    "blender": (2, 80, 0),
+    "location": "Object > Apply > Unity Rotation Fix",
 }
 
 import bpy
@@ -21,8 +22,8 @@ from mathutils import Matrix
 
 class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
     """Fixes rotation (swaps Y and Z axes) for exporting to Unity"""      # blender will use this as a tooltip for menu items and buttons.
-    bl_idname = "object.apply_unity"        # unique identifier for buttons and menu items to reference.
-    bl_label = "Apply for Unity"         # display name in the interface.
+    bl_idname = "object.unity_rotation_fix"        # unique identifier for buttons and menu items to reference.
+    bl_label = "Apply Unity Rotation Fix"         # display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}  # enable undo for the operator.
     
     def execute(self, context):        # execute() is called by blender when running the operator.
@@ -70,11 +71,17 @@ class NOTHKE_OT_unity_rotation_fix(bpy.types.Operator):
 
         return {'FINISHED'}            # this lets blender know the operator finished successfully.
 
+def menu_draw(self, context):
+    layout = self.layout
+    layout.operator("object.unity_rotation_fix", text="Unity Rotation Fix")
+
 def register():
     bpy.utils.register_class(NOTHKE_OT_unity_rotation_fix)
+    bpy.types.VIEW3D_MT_object_apply.append(menu_draw)
 
 def unregister():
     bpy.utils.unregister_class(NOTHKE_OT_unity_rotation_fix)
+    bpy.types.VIEW3D_MT_object_apply.remove(menu_draw)
 
 
 # This allows you to run the script directly from blenders text editor
